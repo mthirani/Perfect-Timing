@@ -2,9 +2,9 @@
 Two web-based stopwatches (one counting up and the other counting down)
 A small set of stop watches in a single web page to play around with, contains the below requirement:
 
-An Input field: in which the user can specify how many seconds to count up to / down from. (calling this as countTarget.)
-Two Read-only stopwatch displays: one counting up from 0 to countTarget and other counting down from countTarget to 0.
-Two Sets of stopwatch controls: one set of controls (start/pause button and reset button) for each stopwatch.
+1.  An Input field: in which the user can specify how many seconds to count up to / down from. (calling this as countTarget.)
+2.  Two Read-only stopwatch displays: one counting up from 0 to countTarget and other counting down from countTarget to 0.
+3.  Two Sets of stopwatch controls: one set of controls (start/pause button and reset button) for each stopwatch.
 
 User's functionality:
 
