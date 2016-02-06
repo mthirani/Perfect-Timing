@@ -1,5 +1,5 @@
 # Perfect-Timing
-Two web-based stopwatches (one counting up and the other counting down)
+Two web-based stopwatches (one counting up and the other counting down).
 A small set of stop watches in a single web page to play around with, contains the below requirement:
 
 1.  An Input field: in which the user can specify how many seconds to count up to / down from. (calling this as countTarget.)

@@ -1,0 +1,299 @@
+<html>
+<head>
+  <title>Perfect Timing</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+	var Days1 = 0;	
+	var Hours1 = 0;
+	var Minutes1 = 0;
+	var Seconds1 = 0;
+	var Days2 = 0;
+	var Hours2 = 0;
+	var Minutes2 = 0;
+	var Seconds2 = 0;
+	var targetValueObs = 0;
+	var stopWatch1Val = 0;
+	var pauseStopWatch1Now;
+	var stopWatch2Val = targetValueObs;
+	var pauseStopWatch2Now;
+	function targetChange()
+	{
+		var target = document.getElementById("Target").value;
+		if(target < 0)
+		{
+			alert("Targeted value is Negative. Please enter a positive number to begin");
+			return;
+		}
+		targetValueObs = target;
+		timeStopWatches2(target);
+		init1();
+		init2();
+		reset1();
+		reset2();
+	}
+	function resetStopWatch1Value()
+	{
+		clearInterval(pauseStopWatch1Now);
+		Days1 = 0;
+		Hours1 = 0;
+		Minutes1 = 0;
+		Seconds1 = 0;
+		stopWatch1Val = 0;
+	}
+	function resetStopWatch2Value()
+	{
+		clearInterval(pauseStopWatch2Now);
+		timeStopWatches2(targetValueObs);
+		stopWatch2Val = targetValueObs;
+	}
+	function init1()
+	{
+		document.getElementById("Days1").value = "" + Days1 + "";
+		document.getElementById("Hours1").value = "" + Hours1 + "";
+		document.getElementById("Minutes1").value = "" + Minutes1 + "";
+		document.getElementById("Seconds1").value = "" + Seconds1 + "";
+	}
+	function init2()
+	{
+		document.getElementById("Days2").value = "" + Days2 + "";
+		document.getElementById("Hours2").value = "" + Hours2 + "";
+		document.getElementById("Minutes2").value = "" + Minutes2 + "";
+		document.getElementById("Seconds2").value = "" + Seconds2 + "";
+	}
+	function updateStopWatch1()
+	{
+		if(stopWatch1Val == targetValueObs)
+		{
+			disableOnStopWatch1();
+			clearInterval(pauseStopWatch1Now);
+		}
+		else
+		{
+			stopWatch1Val = stopWatch1Val + 1;
+			Seconds1 = Seconds1 + 1;
+			if(Seconds1 == 60)
+			{
+				Seconds1 = 0;
+				Minutes1 = Minutes1 + 1;
+				if(Minutes1 == 60)
+				{
+					Minutes1 = 0;
+					Hours1 = Hours1 + 1;
+					if(Hours1 == 24)
+					{
+						Hours1 = 0;
+						Days1 = Days1 + 1;
+					}
+				}
+			}
+			init1();
+		}
+	}
+	function startStopWatch1()
+	{	
+		pauseStopWatch1Now = setInterval(updateStopWatch1,1000);
+		document.getElementById("Start1").disabled = true;
+	}
+	function resetStopWatch1()
+	{
+		reset1();
+	}
+	function pauseStopWatch1()
+	{
+		clearInterval(pauseStopWatch1Now);
+		document.getElementById("Start1").disabled = false;
+	}
+	function reset1()
+	{
+		document.getElementById("Start1").disabled = false;
+		document.getElementById("Pause1").disabled = false;
+		resetStopWatch1Value();
+		init1();
+	}
+	function disableOnStopWatch1()
+	{
+		document.getElementById("Start1").disabled = true;
+		document.getElementById("Pause1").disabled = true;
+	}
+	function updateStopWatch2()
+	{
+		if(stopWatch2Val == 0)
+		{
+			disableOnStopWatch2();
+			clearInterval(pauseStopWatch2Now);
+		}
+		else
+		{
+			stopWatch2Val = stopWatch2Val - 1;
+			timeStopWatches2(stopWatch2Val);
+			init2();
+		}
+	}
+	function startStopWatch2()
+	{
+		pauseStopWatch2Now = setInterval(updateStopWatch2,1000);
+		document.getElementById("Start2").disabled = true;
+	}
+	function timeStopWatches2(targetVal)
+	{
+		Days2 = Math.floor(targetVal / (24*60*60));
+		days = targetVal % (24*60*60);
+		Hours2 = Math.floor(days/(60*60));
+		hours = targetVal % (60*60);
+		Minutes2 = Math.floor(hours/60);
+		minutes = targetVal % 60;
+		Seconds2 = Math.floor(minutes);
+	}
+	function pauseStopWatch2()
+	{
+		clearInterval(pauseStopWatch2Now);
+		document.getElementById("Start2").disabled = false;
+	}
+	function resetStopWatch2()
+	{
+		reset2();
+	}
+	function reset2()
+	{
+		document.getElementById("Start2").disabled = false;
+		document.getElementById("Pause2").disabled = false;
+		resetStopWatch2Value();
+		init2();
+	}
+	function disableOnStopWatch2()
+	{
+		document.getElementById("Start2").disabled = true;
+		document.getElementById("Pause2").disabled = true;
+	}
+  </script>
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" style="font-size: 25px;">Perfect Timing</a>
+		</div>
+	  </div>
+	</nav>
+	<div class="well" style="background-color:brown">
+		<div class="container-fluid"><div class="well" style="background-color: rgb(250,254,254)">
+			<div class="text-center">
+				<div class="row">
+					<div class="col-xs-4">
+						<div class="text-right"><label for="stopwatch1"><h5><strong>Your Counting Target:</strong></h5></label></div>
+					</div>
+					<div class="col-sm-4">
+						<input class="form-control text-center" type="number" placeholder="Enter your target" id="Target" name="Target" onchange="targetChange()"/>
+					</div>
+				</div>
+			</div>
+			<br/>
+			<div class="alert alert-info container-fluid">
+				<div class="text-center">
+					<div class="row">
+						<div class="col-xs-4">
+							<div class="text-right"><label for="stopwatch1"><h5><strong>StopWatch 1 - ( Counting Up ):</strong></h5></label></div>
+						</div>
+						<div class="col-sm-1">
+							<input class="form-control text-center" placeholder="00" id="Days1" name="Days1" disabled/>
+						</div>
+						<div class="col-sm-1">
+							<input class="form-control text-center" placeholder="00" id="Hours1" name="Hours1" disabled/>
+						</div>
+						<div class="col-sm-1">
+							<input class="form-control text-center" placeholder="00" id="Minutes1" name="Minutes1" disabled/> 
+						</div>
+						<div class="col-sm-1">
+							<input class="form-control text-center" placeholder="00" id="Seconds1" name="Seconds1" disabled/>
+						</div>
+					</div>
+				</div>
+				<div class="text-center">
+					<div class="row">
+						<div class="col-xs-4">
+							<div class="text-right"><label for="stopwatch1"><h5><strong></strong></h5></label></div>
+						</div>
+						<div class="col-sm-1">
+							<div class="text-center"><label for="stopwatch1"><h5><strong>Days</strong></h5></label></div>
+						</div>
+						<div class="col-sm-1">
+							<div class="text-center"><label for="stopwatch1"><h5><strong>Hours</strong></h5></label></div>
+						</div>
+						<div class="col-sm-1">
+							<div class="text-center"><label for="stopwatch1"><h5><strong>Minutes</strong></h5></label></div>
+						</div>
+						<div class="col-sm-1">
+							<div class="text-center"><label for="stopwatch1"><h5><strong>Seconds</strong></h5></label></div>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="text-center">
+					<div class="row">
+						<div class="btn-group">
+							<button type="button" class="btn btn-primary" id="Start1" name="Start1" data-placement="bottom" data-toggle="tooltip" title="Start it" onclick="startStopWatch1()">Start</button>
+							<button type="button" class="btn btn-primary" id="Pause1" name="Pause1" data-placement="bottom" data-toggle="tooltip" title="Pause it" onclick="pauseStopWatch1()">Pause</button>
+							<button type="button" class="btn btn-primary" id="Reset1" name="Reset1" data-placement="bottom" data-toggle="tooltip" title="Reset it" onclick="resetStopWatch1()">Reset</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br/>
+			<div class="alert alert-info container-fluid">
+				<div class="text-center">
+					<div class="row">
+						<div class="col-xs-4">
+							<div class="text-right"><label for="stopwatch2"><h5><strong>StopWatch 2 - ( Counting Down ):</strong></h5></label></div>
+						</div>
+						<div class="col-sm-1">
+							<input class="form-control text-center" placeholder="00" id="Days2" name="Days2" disabled/>
+						</div>
+						<div class="col-sm-1">
+							<input class="form-control text-center" placeholder="00" id="Hours2" name="Hours2" disabled/>
+						</div>
+						<div class="col-sm-1">
+							<input class="form-control text-center" placeholder="00" id="Minutes2" name="Minutes2" disabled/> 
+						</div>
+						<div class="col-sm-1">
+							<input class="form-control text-center" placeholder="00" id="Seconds2" name="Seconds2" disabled/>
+						</div>
+					</div>
+				</div>
+				<div class="text-center">
+					<div class="row">
+						<div class="col-xs-4">
+							<div class="text-right"><label for="stopwatch2"><h5><strong></strong></h5></label></div>
+						</div>
+						<div class="col-sm-1">
+							<div class="text-center"><label for="stopwatch2"><h5><strong>Days</strong></h5></label></div>
+						</div>
+						<div class="col-sm-1">
+							<div class="text-center"><label for="stopwatch2"><h5><strong>Hours</strong></h5></label></div>
+						</div>
+						<div class="col-sm-1">
+							<div class="text-center"><label for="stopwatch2"><h5><strong>Minutes</strong></h5></label></div>
+						</div>
+						<div class="col-sm-1">
+							<div class="text-center"><label for="stopwatch2"><h5><strong>Seconds</strong></h5></label></div>
+						</div>
+					</div>
+				</div>
+				<br/>
+				<div class="text-center">
+					<div class="row">
+						<div class="btn-group">
+							<button type="button" class="btn btn-primary" id="Start2" name="Start2" data-placement="bottom" data-toggle="tooltip" title="Start it" onclick="startStopWatch2()">Start</button>
+							<button type="button" class="btn btn-primary" id="Pause2" name="Pause2" data-placement="bottom" data-toggle="tooltip" title="Pause it" onclick="pauseStopWatch2()">Pause</button>
+							<button type="button" class="btn btn-primary" id="Reset2" name="Reset2" data-placement="bottom" data-toggle="tooltip" title="Reset it" onclick="resetStopWatch2()">Reset</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div></div>
+	</div>
+</body>
+</html>
