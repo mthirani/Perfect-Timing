@@ -13,4 +13,4 @@ User's functionality:
 3. Each stopwatch obeys its own start/pause button and reset button.
 4. When a stopwatch reaches its target (either 0 or countTarget depending on which direction they are counting), the stopwatch stops counting and the start/pause button becomes disabled
 
-NOTE: For executing the "Perfect Timing" engine, you just need to copy the html file in your desired location and execuet the html file by double clicking it; It embeds the javascript needed to execute the stopwatch based on the above functionality.
+NOTE: For executing the "Perfect Timing" engine, you just need to copy the html file from "HTML Web page + Javascript" folder in your desired location and execuet the html file by double clicking it; It embeds the javascript needed to execute the stopwatch based on the above functionality.
