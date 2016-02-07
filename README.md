@@ -12,3 +12,5 @@ User's functionality:
 2. The stopwatches always display in days, hours, minutes, and seconds (i.e. "3 days 1 hour 2 minutes 12 seconds").
 3. Each stopwatch obeys its own start/pause button and reset button.
 4. When a stopwatch reaches its target (either 0 or countTarget depending on which direction they are counting), the stopwatch stops counting and the start/pause button becomes disabled
+
+For executing the "Perfect Timing" engine, you just need to copy the html file in your desired location and execuet the html file by double clicking it; It embeds the javascript needed to execute the stopwatch based on the above functionality.
